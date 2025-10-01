@@ -2,6 +2,7 @@ package com.fitness.activityservice.services;
 
 import com.fitness.activityservice.dto.ActivityRequest;
 import com.fitness.activityservice.dto.ActivityResponse;
+import com.fitness.activityservice.exception.ResourceNotFoundException;
 import com.fitness.activityservice.model.Activity;
 import com.fitness.activityservice.repository.ActivityRepository;
 import jakarta.validation.Valid;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ActivityService {
 
     private final ActivityRepository activityRepository;
+    private final UserValidationService userValidationService;
 
     private final ModelMapper modelMapper;
 
@@ -23,6 +25,10 @@ public class ActivityService {
     public ActivityResponse trackActivity(ActivityRequest request) {
         System.out.println("Request : " + request);
 
+        boolean isValidUser = userValidationService.validateUser(request.getUserId());
+        if(!isValidUser){
+           throw new ResourceNotFoundException("User" , "userId" , request.getUserId());
+        }
         Activity activity = modelMapper.map(request , Activity.class);
         activity.setId(null); // <--- pastikan id kosong biar dianggap insert baru
 
