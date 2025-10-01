@@ -8,11 +8,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final UserActivityService userActivityService;
 
     public UserResponse getUserProfile(String userId) {
         User user = userRepository.findById(userId)
@@ -60,5 +64,9 @@ public class UserService {
 
     public Boolean existByUserId(String userId) {
         return userRepository.existsById(userId);
+    }
+
+    public List<Object> getUserActivity(String userId){
+        return userActivityService.getUserActivity(userId);
     }
 }

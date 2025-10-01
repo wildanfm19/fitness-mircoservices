@@ -53,4 +53,8 @@ public class ActivityService {
         Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new RuntimeException("Activity not found"));
         return modelMapper.map(activity , ActivityResponse.class);
     }
+
+
+
+
 }

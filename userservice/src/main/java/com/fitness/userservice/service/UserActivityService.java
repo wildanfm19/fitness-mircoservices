@@ -1,25 +1,27 @@
-package com.fitness.activityservice.services;
+package com.fitness.userservice.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public class UserValidationService {
+public class UserActivityService {
 
-    private final WebClient userServiceWebClient;
+    private final WebClient activityWebClient;
 
-    public boolean validateUser(String userId){
+    public List <Object> getUserActivity(String userId){
 
         try{
-            return userServiceWebClient.get()
-                    .uri("api/users/{userId}/validate" , userId)
+            return activityWebClient.get()
+                    .uri("/api/activity") // endpoint di activity-service
+                    .header("X-User-ID", userId) // kirim userId lewat header
                     .retrieve()
-                    .bodyToMono(Boolean.class)
+                    .bodyToMono(List.class)
                     .block();
         } catch (WebClientResponseException e){
             if(e.getStatusCode() == HttpStatus.NOT_FOUND){
