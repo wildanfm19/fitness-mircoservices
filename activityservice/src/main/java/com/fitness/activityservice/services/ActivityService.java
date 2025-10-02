@@ -7,17 +7,29 @@ import com.fitness.activityservice.model.Activity;
 import com.fitness.activityservice.repository.ActivityRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ActivityService {
 
     private final ActivityRepository activityRepository;
     private final UserValidationService userValidationService;
+    private final RabbitTemplate rabbitTemplate;
+
+    @Value(("${rabbitmq.exchange.name}"))
+    private String exchange;
+    @Value("${rabbitmq.routing.key}")
+    private String routingKey;
+
+
 
     private final ModelMapper modelMapper;
 
@@ -36,6 +48,13 @@ public class ActivityService {
 
         Activity savedActivity = activityRepository.save(activity);
         System.out.println("Saved Activity : " + savedActivity);
+
+        // Publish to RabbitMQ for AI Processing
+        try {
+            rabbitTemplate.convertAndSend(exchange , routingKey , savedActivity);
+        } catch(Exception e){
+            log.error(("Failed to publish activity to RabbitMQ: " + e));
+        }
 
         return modelMapper.map(savedActivity , ActivityResponse.class);
     }
