@@ -15,9 +15,12 @@ public class ActivityMessageListener {
 //    @Value("${rabbitmq.queue.name}")
 //    private String queueName;
 
+    private final ActivityAIService activityAIService;
+
     @RabbitListener(queues = "activity.queue")
     public void processActivity(Activity activity){
         log.info("Received activity for processing: {}" , activity);
+        log.info("Generated Recommendation: {}" , activityAIService.generateRecommendation(activity) );
 
     }
 }
