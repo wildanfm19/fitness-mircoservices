@@ -20,4 +20,8 @@ public class RecommendationService {
         return recommendationRepository.findByActivityId(activityId)
                 .orElseThrow(() -> new RuntimeException("No Recommendation found for this activity with id: " + activityId ));
     }
+
+    public Recomendation createRecommendation(Recomendation recomendation){
+        return recommendationRepository.save(recomendation);
+    }
 }

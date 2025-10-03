@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "recommendations")
+@Document(collection = "recomendations")
 public class Recomendation {
     private String id;
     private String activityId;
