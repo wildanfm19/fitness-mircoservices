@@ -1,7 +1,7 @@
 package com.fitness.aiservice.controller;
 
 
-import com.fitness.aiservice.model.Recomendation;
+import com.fitness.aiservice.model.Recommendation;
 import com.fitness.aiservice.service.RecommendationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +18,18 @@ public class RecommendationController {
 
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Recomendation>> getUserRecommendation(@PathVariable String userId){
+    public ResponseEntity<List<Recommendation>> getUserRecommendation(@PathVariable String userId){
         return ResponseEntity.ok(recommendationService.getUserRecommendation(userId));
     }
 
     @GetMapping("/activity/{activityId}")
-    public ResponseEntity<Recomendation> getActivityRecommendation(@PathVariable String activityId){
+    public ResponseEntity<Recommendation> getActivityRecommendation(@PathVariable String activityId){
         return ResponseEntity.ok(recommendationService.getActivityRecommendation(activityId));
     }
 
     @PostMapping("/create")
-    public Recomendation createRecommendation(@RequestBody Recomendation recomendation){
-        return recommendationService.createRecommendation(recomendation);
+    public Recommendation createRecommendation(@RequestBody Recommendation recommendation){
+        return recommendationService.createRecommendation(recommendation);
     }
 
 

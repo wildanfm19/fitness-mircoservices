@@ -12,7 +12,7 @@
 	<artifactId>aiservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>aiservice</name>
-	<description>ai recomendation service</description>
+	<description>ai recommendation service</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -61,6 +61,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>

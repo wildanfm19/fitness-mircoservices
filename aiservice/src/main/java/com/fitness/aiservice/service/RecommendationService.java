@@ -1,6 +1,6 @@
 package com.fitness.aiservice.service;
 
-import com.fitness.aiservice.model.Recomendation;
+import com.fitness.aiservice.model.Recommendation;
 import com.fitness.aiservice.repository.RecommendationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,16 +12,16 @@ import java.util.List;
 public class RecommendationService {
     private final RecommendationRepository recommendationRepository;
 
-    public List<Recomendation> getUserRecommendation(String userId) {
+    public List<Recommendation> getUserRecommendation(String userId) {
         return recommendationRepository.findByUserId(userId);
     }
 
-    public Recomendation getActivityRecommendation(String activityId) {
+    public Recommendation getActivityRecommendation(String activityId) {
         return recommendationRepository.findByActivityId(activityId)
                 .orElseThrow(() -> new RuntimeException("No Recommendation found for this activity with id: " + activityId ));
     }
 
-    public Recomendation createRecommendation(Recomendation recomendation){
-        return recommendationRepository.save(recomendation);
+    public Recommendation createRecommendation(Recommendation recommendation){
+        return recommendationRepository.save(recommendation);
     }
 }
