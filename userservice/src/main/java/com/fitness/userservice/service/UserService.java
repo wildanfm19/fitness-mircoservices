@@ -47,6 +47,7 @@ public class UserService {
                         .keycloakId(existingUser.getKeycloakId())
                     .firstName(existingUser.getFirstName())
                     .lastName(existingUser.getLastName())
+                    .keycloakId(existingUser.getKeycloakId())
                     .email(existingUser.getEmail())
                     .createdAt(existingUser.getCreatedAt())
                     .updatedAt(existingUser.getUpdatedAt())
@@ -58,6 +59,7 @@ public class UserService {
                 .password(request.getPassword())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
+                .keycloakId(request.getKeycloakId())
                 .role(UserRole.USER)
                 .build();
 
