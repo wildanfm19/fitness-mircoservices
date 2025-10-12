@@ -2,7 +2,7 @@ import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } fro
 import React, { useState } from "react";
 import { addActivity } from "../services/api";
 
-const ActivityForm = () => {
+const ActivityForm = ({onActivityAdded}) => {
   const [activity, setActivity] = useState({
     type: "RUNNING",
     duration: "",
@@ -14,7 +14,7 @@ const ActivityForm = () => {
     e.preventDefault();
     try {
       await addActivity(activity);
-      onActivityAdded();
+      onActivityAdded(); // ✅ tells parent to refresh
       setActivity({ type: "RUNNING", duration: "", caloriesBurned: "" });
     } catch (error) {
       console.error("Error adding activity:", error);
@@ -31,7 +31,7 @@ const ActivityForm = () => {
         >
           <MenuItem value="RUNNING">Running</MenuItem>
           <MenuItem value="CYCLING">Cycling</MenuItem>
-          <MenuItem value="WALKING">Swimming</MenuItem>
+          <MenuItem value="WALKING">Walking</MenuItem>
           <MenuItem value="SWIMMING">Swimming</MenuItem>
         </Select>
       </FormControl>
