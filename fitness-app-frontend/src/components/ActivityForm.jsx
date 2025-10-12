@@ -1,5 +1,6 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { addActivity } from "../services/api";
 
 const ActivityForm = () => {
   const [activity, setActivity] = useState({
@@ -12,10 +13,12 @@ const ActivityForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    //   await addActivity(activity);
+      await addActivity(activity);
       onActivityAdded();
       setActivity({ type: "RUNNING", duration: "", caloriesBurned: "" });
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error adding activity:", error);
+    }
   };
 
   return (
@@ -38,7 +41,7 @@ const ActivityForm = () => {
         type="number"
         sx={{ mb: 2 }}
         value={activity.duration}
-        onchange={(e) => setActivity({ ...activity, duration: e.target.value })}
+        onChange={(e) => setActivity({ ...activity, duration: e.target.value })}
       />
       <TextField
         fullWidth
