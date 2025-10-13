@@ -31,6 +31,7 @@ const ActivityDetail = () => {
       try {
         const responseActivity = await getActivity(recommendation.activityId);
         setActivity(responseActivity.data);
+        console.log("Activity: " + responseActivity.data);
       } catch (error) {
         console.log(error);
       }
@@ -39,9 +40,10 @@ const ActivityDetail = () => {
     fetchActivity();
   }, [recommendation]);
 
-  if (!activity && !recommendation) {
-    return <Typography>Loading...</Typography>;
+  if (!activity) {
+    return <Typography>Sabar ya...</Typography>;
   }
+  
 
   return (
     <Box sx={{ maxWidth: 800, mx: "auto", p: 2 }}>

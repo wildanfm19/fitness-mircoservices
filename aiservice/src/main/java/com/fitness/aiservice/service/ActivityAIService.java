@@ -139,45 +139,46 @@ public class ActivityAIService {
 
     private String createPromptForActivity(Activity activity) {
         return String.format("""
-        Analyze this fitness activity and provide detailed recommendations in the following EXACT JSON format:
+    Analisis aktivitas kebugaran berikut dan berikan rekomendasi secara detail dalam format JSON PERSIS seperti berikut:
+    {
+      "analysis": {
+        "overall": "Analisis keseluruhan di sini",
+        "pace": "Analisis kecepatan di sini",
+        "heartRate": "Analisis detak jantung di sini",
+        "caloriesBurned": "Analisis kalori di sini"
+      },
+      "improvements": [
         {
-          "analysis": {
-            "overall": "Overall analysis here",
-            "pace": "Pace analysis here",
-            "heartRate": "Heart rate analysis here",
-            "caloriesBurned": "Calories analysis here"
-          },
-          "improvements": [
-            {
-              "area": "Area name",
-              "recommendation": "Detailed recommendation"
-            }
-          ],
-          "suggestions": [
-            {
-              "workout": "Workout name",
-              "description": "Detailed workout description"
-            }
-          ],
-          "safety": [
-            "Safety point 1",
-            "Safety point 2"
-          ]
+          "area": "Nama area peningkatan",
+          "recommendation": "Rekomendasi detail"
         }
+      ],
+      "suggestions": [
+        {
+          "workout": "Nama latihan",
+          "description": "Deskripsi latihan secara detail"
+        }
+      ],
+      "safety": [
+        "Poin keselamatan 1",
+        "Poin keselamatan 2"
+      ]
+    }
 
-        Analyze this activity:
-        Activity Type: %s
-        Duration: %d minutes
-        Calories Burned: %d
-        Additional Metrics: %s
-        
-        Provide detailed analysis focusing on performance, improvements, next workout suggestions, and safety guidelines.
-        Ensure the response follows the EXACT JSON format shown above.
-        """,
+    Analisis aktivitas berikut:
+    Jenis Aktivitas: %s
+    Durasi: %d menit
+    Kalori Terbakar: %d
+    Metrik Tambahan: %s
+    
+    Berikan analisis yang mendalam dengan fokus pada performa, peningkatan, saran latihan berikutnya, dan panduan keselamatan.
+    Pastikan respons mengikuti format JSON PERSIS seperti yang ditunjukkan di atas.
+    """,
                 activity.getType(),
                 activity.getDuration(),
                 activity.getCaloriesBurned(),
                 activity.getAdditionalMetrics()
         );
     }
+
 }
