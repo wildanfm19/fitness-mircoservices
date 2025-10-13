@@ -39,7 +39,7 @@ const ActivityDetail = () => {
     fetchActivity();
   }, [recommendation]);
 
-  if (!activity || !recommendation) {
+  if (!activity && !recommendation) {
     return <Typography>Loading...</Typography>;
   }
 
