@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { getActivity, getActivityDetail } from "../services/api";
-import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
+import { Box, Card, CardContent, Divider, Typography, Button } from "@mui/material";
 
 const ActivityDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [activity, setActivity] = useState(null);
   const [recommendation, setRecommendation] = useState(null);
 
@@ -41,12 +42,17 @@ const ActivityDetail = () => {
   }, [recommendation]);
 
   if (!activity) {
-    return <Typography>Sabar ya...</Typography>;
+    return (
+      <Box sx={{ textAlign: 'center', mt: 6 }}>
+        <Typography variant="body1">Loading activity — please wait...</Typography>
+      </Box>
+    );
   }
   
 
   return (
     <Box sx={{ maxWidth: 800, mx: "auto", p: 2 }}>
+      <Button sx={{ mb: 2 }} onClick={() => { navigate(-1) }}>← Back</Button>
       <Card sx={{ mb: 2 }}>
         <CardContent>
           <Typography variant="h5" gutterBottom>
